@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
  * @author logan
  */
 public class SimpleToDoListUI extends javax.swing.JFrame {
-    
-    String font = "Tahoma"; 
+
+    String font = "Tahoma";
 
     /**
      * Creates new form SimpleToDoListUI
@@ -264,22 +264,28 @@ public class SimpleToDoListUI extends javax.swing.JFrame {
 
     // "Completed"
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JLabel label = new JLabel();
+        label.setFont(new Font(font, Font.PLAIN, 20));
 
         try {
-            if (!dlm.isEmpty()) {
-                int selected = jList1.getSelectedIndex();
-                String entry = dlm.get(selected).toString();
+            int selected = jList1.getSelectedIndex();
+            String entry = dlm.get(selected).toString();
 
-                if (!(entry.contains("DONE!") && entry.isEmpty())) {
-                    entry = "DONE! " + entry;
-                    dlm.remove(selected);
-                    dlm.add(selected, entry);
-                }              
+            if (entry.contains("DONE!")) {
+                label.setText("You have already completed this.");
+                JOptionPane.showMessageDialog(rootPane, label, "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (entry.isEmpty()) {
+                label.setText("Please select a task.");
+                JOptionPane.showMessageDialog(rootPane, label, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                entry = "DONE! " + entry;
+                dlm.remove(selected);
+                dlm.add(selected, entry);
+                entry = null;
             }
-        // Exception handler if no task is selected 
+
+            // Exception handler if no task is selected 
         } catch (ArrayIndexOutOfBoundsException ex) {
-            JLabel label = new JLabel();
-            label.setFont(new Font(font, Font.PLAIN, 20));
             label.setText("Please select a task.");
             JOptionPane.showMessageDialog(null, label, "Error", JOptionPane.ERROR_MESSAGE);
 

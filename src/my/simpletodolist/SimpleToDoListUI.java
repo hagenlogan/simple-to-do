@@ -270,7 +270,7 @@ public class SimpleToDoListUI extends javax.swing.JFrame {
                 int selected = jList1.getSelectedIndex();
                 String entry = dlm.get(selected).toString();
 
-                if (!entry.contains("DONE!")) {
+                if (!(entry.contains("DONE!") && entry.isEmpty())) {
                     entry = "DONE! " + entry;
                     dlm.remove(selected);
                     dlm.add(selected, entry);
